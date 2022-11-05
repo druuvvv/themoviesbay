@@ -1,0 +1,14 @@
+.trend-list{
+    display: flex;
+    
+    justify-content: center;
+}
+
+.list-group-item{
+    background-color: #E50914;
+}
+
+.trend-movie:hover{
+    cursor: pointer;
+
+}
