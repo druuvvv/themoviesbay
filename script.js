@@ -1,7 +1,7 @@
 
 
 let URL = "https://api.themoviedb.org/3/trending/movie/day?api_key=076113f04da878b9154d2580ddc6c02e";
-let poster_URL = "https://image.tmdb.org/t/p/w500";
+let poster_URL = "https://image.tmdb.org/t/p/w780";
 let upcoming_url = "https://api.themoviedb.org/3/movie/upcoming?api_key=076113f04da878b9154d2580ddc6c02e&language=en-US&page=1";
 
 const poster_images = [];
@@ -26,6 +26,7 @@ fetch(URL).then(response => {
         overviews[i] = trending[i]['overview'];
         rating[i] = trending[i]['vote_average'];
         movieId[i] = trending[i]['id'];
+        upcom_date.push(trending[i]['release_date']);
     }
     let poster = document.querySelectorAll(".poster");
     let trend_list = document.querySelectorAll(".trend-movie");
@@ -53,6 +54,7 @@ fetch(upcoming_url).then(resp => {
                 newmovieId.push(results[i]['id']);
                 newposter.push(poster_URL + results[i]['poster_path']);
                 overviews.push(results[i]['overview']);
+                rating.push(results[i]['vote_average']);
             }
         }
     }
@@ -72,6 +74,7 @@ fetch(upcoming_url).then(resp => {
                 newmovieId.push(results[i]['id']);
                 newposter.push(poster_URL + results[i]['poster_path']);
                 overviews.push(results[i]['overview']);
+                rating.push(results[i]['vote_average']);
             }
         }
         console.log(upcoming + upcom_date);
@@ -92,6 +95,7 @@ fetch(upcoming_url).then(resp => {
                 newmovieId.push(results[i]['id']);
                 overviews.push(results[i]['overview']);
                 newposter.push(poster_URL + results[i]['poster_path']);
+                rating.push(results[i]['vote_average']);
             }
         }
         let upcom_list = document.querySelectorAll(".upcoming-movie");
@@ -99,7 +103,7 @@ fetch(upcoming_url).then(resp => {
         for(let k =0;k<10;k++){
             upcom_list[k].innerText = upcoming[k];
             if(upcom_date[k] != null)
-            up_date[k].innerHTML = upcom_date[k];
+            up_date[k].innerHTML = upcom_date[k+10];
             
         }
         console.log(upcom_date);
@@ -118,15 +122,19 @@ function search(form){
 
 function moreinfo(clickId){
     let x = document.getElementById('modalbtn');
-     let position = clickId.charCodeAt(6) - 48;
-     console.log(position);
-     x.click();
-     let modaltitle = document.getElementById('modaltitle');
+    let position = clickId.charCodeAt(6) - 48;
+    console.log(position);
+    x.click();
+    let modalRelease = document.getElementById('modalRelease');
+    modalRelease.innerText = upcom_date[position];
+    let modalRating = document.getElementById('modalRating');
+    let modaltitle = document.getElementById('modaltitle');
     let modalimage = document.querySelector(".modalimage");
     let modaloverview = document.getElementById('modaloverview');
     modaltitle.innerText = titles[position];
     modalimage.setAttribute('src' , poster_images[position]);
     modaloverview.innerText = overviews[position];
+    modalRating.innerText = rating[position].toFixed(1);
 
     let url = "https://api.themoviedb.org/3/movie/" + movieId[position] + "/credits?api_key=076113f04da878b9154d2580ddc6c02e&language=en-US";
     console.log(url);
@@ -153,15 +161,24 @@ function moreinfo(clickId){
 
 function moreinfo2(clickId){
     let x = document.getElementById('modalbtn');
-     let position = clickId.charCodeAt(4) - 48;
-     console.log(position);
-     x.click();
-     let modaltitle = document.getElementById('modaltitle');
+    let position = clickId.charCodeAt(4) - 48;
+    console.log(position);
+    x.click();
+    let modalRating = document.getElementById('modalRating');
+    let modalRelease = document.getElementById('modalRelease');
+    let modaltitle = document.getElementById('modaltitle');
     let modalimage = document.querySelector(".modalimage");
     let modaloverview = document.getElementById('modaloverview');
+    modalRelease.innerText =upcom_date[position+10];
     modaltitle.innerText = upcoming[position];
     modalimage.setAttribute('src' , newposter[position]);
     modaloverview.innerText = overviews[position+10];
+    if(rating[position+10].toFixed(1) == 0.0){
+        modalRating.innerText = "Unrated";
+    }
+    else
+    modalRating.innerText = rating[position+10].toFixed(1);
+    
 
     let url = "https://api.themoviedb.org/3/movie/" + newmovieId[position] + "/credits?api_key=076113f04da878b9154d2580ddc6c02e&language=en-US";
     console.log(url);
