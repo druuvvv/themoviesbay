@@ -1,6 +1,5 @@
 .trend-list{
     display: flex;
-    
     justify-content: center;
 }
 
@@ -13,6 +12,10 @@
 
 }
 .upcoming-movie:hover{
+    cursor: pointer;
+
+}
+.search-list:hover{
     cursor: pointer;
 
 }

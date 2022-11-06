@@ -224,17 +224,17 @@
     </div>
 
   </div>
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="modalbtn" style="display: none;">
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModale" id="modalbtn" style="display: none;">
     Launch demo modal
   </button>
 
-<div class="modal fade modal-lg" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade modal-lg" id="exampleModale" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content bg-dark" >
       <div class="modal-header modal-header-black" style="display:flex;align-items:center;">
         <h6 id="modalRelease" class="bg-light text-dark rounded-3 p-2 mt-1" style="display:flex;align-items:center;"></h6>
         <h6 id="modalRating" class="bg-light text-dark rounded-3 p-2 mt-1 ms-1" style="display:flex;align-items:center;"></h6>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" onclick="closebtn()"></button>
       </div>
       <div class="modal-body">
         <div class="container text-center">
@@ -254,6 +254,11 @@
               <p class="rounded-4 text-light p-2" id="castdetails" style="background-color:#E50914 ;border: solid white 1px;">
               <b id="cast1"></b> playing <b id="cast2"></b> <br><b id="cast3"></b> playing <b id="cast4"></b></p>
             </div>
+           
+            <iframe allowfullscreen class="rounded-2"
+               src="" id="youtube">
+            </iframe>
+          
             </div>
           </div>
         </div>
@@ -261,7 +266,26 @@
     </div>
   </div>
 </div>
-  
+
+
+
+<button type="button" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal" id="btnsearch">
+
+</button>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <ul class="list-group">
+        <li class="list-group-item search-list" id="search-0" onclick="searchinfo(this.id)"></li>
+        <li class="list-group-item search-list" id="search-1" onclick="searchinfo(this.id)"></li>
+        <li class="list-group-item search-list" id="search-2" onclick="searchinfo(this.id)"></li>
+        <li class="list-group-item search-list" id="search-3" onclick="searchinfo(this.id)"></li>
+        <li class="list-group-item search-list" id="search-4" onclick="searchinfo(this.id)"></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
 
   <script src="script.js"></script>
 
