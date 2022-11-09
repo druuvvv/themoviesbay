@@ -1,5 +1,3 @@
-
-
 let URL = "https://api.themoviedb.org/3/trending/movie/day?api_key=076113f04da878b9154d2580ddc6c02e";
 let poster_URL = "https://image.tmdb.org/t/p/w780";
 let upcoming_url = "https://api.themoviedb.org/3/movie/upcoming?api_key=076113f04da878b9154d2580ddc6c02e&language=en-US&page=1";
@@ -15,11 +13,11 @@ const upcom_date = [];
 const newposter = [];
 const movieId = [];
 const newmovieId = [];
+
 fetch(URL).then(response => {
     return response.json();
 }).then(json => {
     let trending = json['results'];
-
     for (let i = 0; i < 10; i++) {
         poster_images[i] = poster_URL + trending[i]['poster_path'];
         titles[i] = trending[i]['title'];
@@ -37,9 +35,10 @@ fetch(URL).then(response => {
         poster[i].setAttribute("src", poster_images[i]);
         trend_list[i].innerText = titles[i];
         rat_badge[i].innerText = rating[i].toFixed(1);
-    }
 
+    }
 })
+
 
 fetch(upcoming_url).then(resp => {
     return resp.json();
@@ -110,8 +109,6 @@ fetch(upcoming_url).then(resp => {
         console.log(upcom_date);
     }
 )
-
-
 
 function moreinfo(clickId){
     let x = document.getElementById('modalbtn');
@@ -194,7 +191,6 @@ function moreinfo2(clickId){
     else
     modalRating.innerText = rating[position+10].toFixed(1);
     
-
     let url = "https://api.themoviedb.org/3/movie/" + movieId[position+10] + "/credits?api_key=076113f04da878b9154d2580ddc6c02e&language=en-US";
     console.log(url);
     const actors = [];
@@ -223,7 +219,6 @@ function moreinfo2(clickId){
         return resp.json();
     }).then(json => {
         let links = json['results'];
-
         for(let i=0 ; i<links.length ; i++){
             let utube = document.getElementById('youtube');
             let uu = "https://www.youtube.com/embed/"+links[i]['key'];
@@ -231,15 +226,12 @@ function moreinfo2(clickId){
                 utube.setAttribute('src' , uu);
                 utube.className = '';
                 break;
-
             }
             else{
                 utube.className = 'd-none';
             }
         }
     })
-
-
 }
 
 if(screen.availWidth < 736){
@@ -288,16 +280,79 @@ function search(form){
    
 }
 function searchinfo(clicksearch){
+    let x = document.getElementById('modalbtn');
+    x.click();
     let position = clicksearch.charCodeAt(7) - 48;
-    let findURL  = "https://api.themoviedb.org/3/movie/" + searchIds[position] + "?api_key=076113f04da878b9154d2580ddc6c02e&language=en-US";
-
-    fetch(findURL).then(resp => {
+    let modalRelease = document.getElementById('modalRelease');
+    modalRelease.innerText = upcom_date[position];
+    let modalRating = document.getElementById('modalRating');
+    let modaltitle = document.getElementById('modaltitle');
+    let modalimage = document.querySelector(".modalimage");
+    let modaloverview = document.getElementById('modaloverview');
+    modaltitle.innerText = titles[position];
+    modalimage.setAttribute('src' , poster_images[position]);
+    modaloverview.innerText = overviews[position];
+    modalRating.innerText = rating[position].toFixed(1);
+    
+    let movieid = searchIds[position];
+    console.log(movieid);
+    let url = "https://api.themoviedb.org/3/movie/" + movieid + "?api_key=076113f04da878b9154d2580ddc6c02e&language=en-US";
+    fetch(url).then(resp => {
         return resp.json();
-    }).then(json => {
-         const ext = json['homepage'];
-        console.log(ext + " " + searchIds[position]);
-        
-    })  
-}
+    }).then(
+        json => {
+            let result = json;
+            modaltitle.innerText = result['title'];
+            modaloverview.innerText = result['overview'];
+            modalRating.innerText = result['vote_average'].toFixed(1);
+            let posterurl =  "https://image.tmdb.org/t/p/w780" + result['poster_path'];
+            modalimage.setAttribute('src' , posterurl);
+            let url = "https://api.themoviedb.org/3/movie/" + movieid + "/credits?api_key=076113f04da878b9154d2580ddc6c02e&language=en-US";
+            console.log(url);
+            const actors = [];
+            const character = [];
+            fetch(url).then(response => {
+               return response.json();
+             }).then(json => {
+               let cast = json['cast'];
+               for(let i=0;i<2;i++){
+               actors.push(cast[i]['name']);
+               character[i] = cast[i]['character'];
+             }
+               let cast1 = document.getElementById('cast1');
+               cast1.innerText = actors[0];
+               let cast2 = document.getElementById('cast2');
+               cast2.innerText = character[0];
+               let cast3 = document.getElementById('cast3');
+               cast3.innerText = actors[1];
+               let cast4 = document.getElementById('cast4');
+               cast4.innerText = character[1];
+             })
+             let videourl = "https://api.themoviedb.org/3/movie/" + movieid +"/videos?api_key=076113f04da878b9154d2580ddc6c02e&language=en-US";
 
+             fetch(videourl).then(resp => {
+                 return resp.json();
+             }).then(json => {
+                 let links = json['results'];
+         
+                 for(let i=0 ; i<links.length ; i++){
+                     let utube = document.getElementById('youtube');
+                     let uu = "https://www.youtube.com/embed/"+links[i]['key'];
+                     if(links[i]['type'] == 'Trailer'){
+                         utube.setAttribute('src' , uu);
+                         utube.classList.remove('d-none');
+                         break;
+         
+                     }
+                     else{
+                         utube.className = 'd-none';
+                     }
+                 }
+             }).catch(err => {
+                console.log(err);
+             })
+            
+        }
+    )
+}
 
