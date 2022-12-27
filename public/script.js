@@ -1,3 +1,4 @@
+
 let URL = "https://api.themoviedb.org/3/trending/movie/day?api_key=076113f04da878b9154d2580ddc6c02e";
 let poster_URL = "https://image.tmdb.org/t/p/w780";
 let upcoming_url = "https://api.themoviedb.org/3/movie/upcoming?api_key=076113f04da878b9154d2580ddc6c02e&language=en-US&page=1";
@@ -13,7 +14,7 @@ const upcom_date = [];
 const newposter = [];
 const movieId = [];
 const newmovieId = [];
-
+upcom_movie_list()
 fetch(URL).then(response => {
     return response.json();
 }).then(json => {
@@ -37,10 +38,12 @@ fetch(URL).then(response => {
         rat_badge[i].innerText = rating[i].toFixed(1);
 
     }
+
 })
 
+async function upcom_movie_list(){
 
-fetch(upcoming_url).then(resp => {
+await fetch(upcoming_url).then(resp => {
     return resp.json();
 }).then(
     json => {
@@ -60,7 +63,7 @@ fetch(upcoming_url).then(resp => {
     }
 )
 upcoming_url = "https://api.themoviedb.org/3/movie/upcoming?api_key=076113f04da878b9154d2580ddc6c02e&language=en-US&page=2"
-fetch(upcoming_url).then(resp => {
+await fetch(upcoming_url).then(resp => {
     return resp.json();
 }).then(
     json => {
@@ -81,7 +84,7 @@ fetch(upcoming_url).then(resp => {
     }
 )
 upcoming_url = "https://api.themoviedb.org/3/movie/upcoming?api_key=076113f04da878b9154d2580ddc6c02e&language=en-US&page=3"
-fetch(upcoming_url).then(resp => {
+await fetch(upcoming_url).then(resp => {
     return resp.json();
 }).then(
     json => {
@@ -109,6 +112,7 @@ fetch(upcoming_url).then(resp => {
         console.log(upcom_date);
     }
 )
+}
 
 function moreinfo(clickId){
     let x = document.getElementById('modalbtn');
@@ -169,9 +173,13 @@ function moreinfo(clickId){
             }
         }
     })
+    let newp = document.getElementById('newpage');
+    let tt = "/" + movieId[position];
+    console.log(movieId[0]);
+    newp.setAttribute('href' , tt);
 }
 
-function moreinfo2(clickId){
+async function moreinfo2(clickId){
     let x = document.getElementById('modalbtn');
     let position = clickId.charCodeAt(4) - 48;
     console.log(position);
@@ -195,7 +203,7 @@ function moreinfo2(clickId){
     console.log(url);
     const actors = [];
     const character = [];
-    fetch(url).then(response => {
+    await fetch(url).then(response => {
         return response.json();
     }).then(json => {
         let cast = json['cast'];
@@ -215,7 +223,7 @@ function moreinfo2(clickId){
 
     let videourl = "https://api.themoviedb.org/3/movie/" + movieId[position+10] +"/videos?api_key=076113f04da878b9154d2580ddc6c02e&language=en-US";
 
-    fetch(videourl).then(resp => {
+    await fetch(videourl).then(resp => {
         return resp.json();
     }).then(json => {
         let links = json['results'];
@@ -225,13 +233,21 @@ function moreinfo2(clickId){
             if(links[i]['type'] == 'Trailer'){
                 utube.setAttribute('src' , uu);
                 utube.className = '';
+                console.log("badi tikki");
                 break;
+                
             }
             else{
+                console.log(uu);
+                console.log("tikki");
                 utube.className = 'd-none';
             }
         }
     })
+    let newp = document.getElementById('newpage');
+    let tt = "/" + movieId[position+10];
+    console.log(movieIds[0]);
+    newp.setAttribute('href' , tt);
 }
 
 if(screen.availWidth < 736){
@@ -277,6 +293,7 @@ function search(form){
         }
         
     })
+
    
 }
 function searchinfo(clicksearch){
@@ -354,5 +371,9 @@ function searchinfo(clicksearch){
             
         }
     )
+    let newp = document.getElementById('newpage');
+    let tt = "/" + movieid;
+
+    newp.setAttribute('href' , tt);
 }
 

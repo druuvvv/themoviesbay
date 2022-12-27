@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Movies Bay</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+
+<body class="bg-dark">
+  <nav class="navbar bg-black sticky-top">
+
+    <div class="container-fluid">
+
+      <a class="navbar-brand display-1 text-light align-middle d-inline" href="/">
+        <img src="/resources/feature-img-min-1280x720.png" alt="Logo" width="120" height="72"
+          class="d-inline-block align-text-middle">
+        <h1 class="d-inline align-middle text-light">The Movies Bay</h1>
+      </a>
+      <form class="d-flex flex-nowrap input-group-sm" role="search" name="searchbar" method="GET">
+        <input class="form-control me-2 display-1" name="searchbox" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn text-light" type="button" onclick="search(this.form)"
+          style="background-color:#E50914 ; font-family: 'Bebas Neue',cursive ; font-size: larger;">
+         Search
+        </button>
+      </form>
+    </div>
+
+  </nav>
+   
+   <div class="row">
+    <div class="col">
+    <h1 id="movieId" class="text-light text-align-center"></h1>
+   <h5 id="movietag" class="text-light"></h5>
+   <br><br><br>
+   <h3 class="text-light">IMAGINE THIS PART IS FILLED WITH ALL THE INFO ABOUT THE MOVIE 🙏</h3>
+    </div>
+    <div class="col">
+        <img class="img-fluid" src="" alt="" id="postertag">
+    </div>
+
+    <div class="row"></div>
+   </div>
+   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModale" id="modalbtn" style="display: none;">
+    Launch demo modal
+  </button>
+
+<div class="modal fade modal-lg" id="exampleModale" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content bg-dark" >
+      <div class="modal-header modal-header-black" style="display:flex;align-items:center;">
+        <h6 id="modalRelease" class="bg-light text-dark rounded-3 p-2 mt-1" style="display:flex;align-items:center;"></h6>
+        <h6 id="modalRating" class="bg-light text-dark rounded-3 p-2 mt-1 ms-1" style="display:flex;align-items:center;"></h6>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" onclick="closebtn()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container text-center">
+          <div class="row" style="display:flex;justify-content:center;align-items:center;">
+            <h1 id="modaltitle" class=" justify-content-center rounded-3 text-light p-2" style="background-color:#E50914 ;align-items:center; border: solid white 1px;"></h1>
+        
+            <div class="col modalcol">
+              <img src="" alt="" class="modalimage img-fluid rounded-2" >
+            </div>
+            <div class="col modalcol">
+              <div> <h3 class="text-light mt-2">OVERVIEW</h3>
+              <p class="rounded-4 text-light p-2" id="modaloverview" style="background-color:#E50914 ;border: solid white 1px;"></p>
+            </div>
+            
+              <div>
+                <h3 class="text-light">CAST</h3>
+              <p class="rounded-4 text-light p-2" id="castdetails" style="background-color:#E50914 ;border: solid white 1px;">
+              <b id="cast1"></b> playing <b id="cast2"></b> <br><b id="cast3"></b> playing <b id="cast4"></b></p>
+            </div>
+           
+            <iframe allowfullscreen class="d-none"
+               src="" id="youtube">
+            </iframe>
+            <a class="btn btn-danger" href="" role="button" id="newpage" style="background-color:#E50914 ;">More Info</a>
+          
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button type="button" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal" id="btnsearch">
+
+</button>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <ul class="list-group">
+        <li class="list-group-item search-list" id="search-0" onclick="searchinfo(this.id)"></li>
+        <li class="list-group-item search-list" id="search-1" onclick="searchinfo(this.id)"></li>
+        <li class="list-group-item search-list" id="search-2" onclick="searchinfo(this.id)"></li>
+        <li class="list-group-item search-list" id="search-3" onclick="searchinfo(this.id)"></li>
+        <li class="list-group-item search-list" id="search-4" onclick="searchinfo(this.id)"></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+  
+ 
+
+   
+  <script src="newpage.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+    crossorigin="anonymous"></script>
+
+    
+</body>
+
+</html>
+
